@@ -97,7 +97,7 @@ module Computation
     Set test function
     """
     function set_function(param, test_function)
-        test_function .= sin.(param.x) + 3.0 * cos.(param.x)
+        test_function .= sin.(param.x) + cos.(3.0 * param.x) + sin.(5.0 * param.x)
     end
 end
 
@@ -203,7 +203,7 @@ using .PlotFigures:
 # ----------------------------------------
 ## Declare parameters & mutable structs
 # ----------------------------------------
-σ = π/5.0
+σ = π/3.0
 x_lim = π
 dx = 0.01
 x = -x_lim:dx:x_lim
