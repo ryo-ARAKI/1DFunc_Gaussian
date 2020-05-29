@@ -77,7 +77,7 @@ module Computation
     Set test function
     """
     function set_function(param, test_function)
-        test_function = sin.(param.x) + 3.0 * cos.(param.x)
+        test_function .= sin.(param.x) + 3.0 * cos.(param.x)
     end
 end
 
