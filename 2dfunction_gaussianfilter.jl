@@ -131,11 +131,18 @@ module PlotFigures
             xlabel=L"$x$", ylabel=L"$f$",
             xlim=[-param.x_lim, param.x_lim],
             xticks=[-π, -π/2.0, 0.0, π/2.0, π],
-            xticklabels=[L"$-\pi$", L"$-\pi/2$", L"$0$", L"$\pi/2$", L"$\pi$"]
+            xticklabels=[L"$-\pi$", L"$-\pi/2$", L"$0$", L"$\pi/2$", L"$\pi$"],
         )
 
-        # Function plot
-        ax.plot(param.x, func.f)
+        # Plot original/filtered function
+        ax.plot(
+            param.x, func.f,  # original
+            param.x, func.f_G,  # filtered
+        )
+
+        ax.legend(["original", "filtered"])
+
+        # Save figure
         savefig(
             "./fig/func.png",
             bbox_inches="tight", pad_inches=0.1
