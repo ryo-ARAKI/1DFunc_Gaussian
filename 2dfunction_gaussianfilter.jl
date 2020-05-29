@@ -73,6 +73,12 @@ module Computation
     end
 
 
+    """
+    Set test function
+    """
+    function set_function(param, test_function)
+        test_function = sin.(param.x) + 3.0 * cos.(param.x)
+    end
 end
 
 
@@ -86,7 +92,8 @@ using Plots
 
 using .ParamVar
 using .Computation:
-    compute_gaussian_kernel_integral
+    compute_gaussian_kernel_integral,
+    set_function
 
 
 # ----------------------------------------
