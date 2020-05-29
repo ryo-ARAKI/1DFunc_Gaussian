@@ -110,8 +110,8 @@ module PlotFigures
         ax = gca(
             xlabel=L"$x$", ylabel=L"$f$",
             xlim=[-param.x_lim, param.x_lim],
-            xticks=[-π, -π*3.0/4.0, -π/2.0, -π/4.0, 0.0, π/4.0, π/2.0, π*3.0/4.0, π],
-            xticklabels=[L"$-\pi$", L"$-3\pi/4$", L"$-\pi/2$", L"$-\pi/4$", L"$0$", L"$\pi/4$", L"$\pi/2$", L"$3\pi/4$", L"$\pi$"]
+            xticks=[-π, -π/2.0, 0.0, π/2.0, π],
+            xticklabels=[L"$-\pi$", L"$-\pi/2$", L"$0$", L"$\pi/2$", L"$\pi$"]
         )
 
         # Function plot
