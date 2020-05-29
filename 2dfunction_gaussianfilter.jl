@@ -47,7 +47,7 @@ module Computation
     3D: G(x,x',σ²) = 1/[(2π)^3/2 σ³] exp{ 1/(2σ²) [(x'-x)² + (y'-y)² + (z'-z)²] }
     """
     function compute_gaussian_weight(σ, r²)
-        return 1.0 / (sqrt(2.0*π) * σ) * exp(r² / (2.0*σ^2))
+        return exp(-r² / (2.0*σ^2)) / (sqrt(2.0*π) * σ)
     end
 
 
