@@ -148,6 +148,37 @@ module PlotFigures
             bbox_inches="tight", pad_inches=0.1
         )
     end
+
+
+    """
+    Plot Gaussian function
+    """
+    function out_gaussian(param)
+        # Figure setting
+        pygui(true)
+        fig = figure()
+        ax = gca(
+            xlabel=L"$x$", ylabel=L"$f$",
+            xlim=[-param.x_lim, param.x_lim],
+            xticks=[-π, -π/2.0, 0.0, π/2.0, π],
+            xticklabels=[L"$-\pi$", L"$-\pi/2$", L"$0$", L"$\pi/2$", L"$\pi$"],
+        )
+
+        # Set Gaussian function
+        gaussian = Array{Float64}(undef, param.N)
+        gaussian .= exp.(-param.x.^2 / (2.0*param.σ^2)) / (sqrt(2.0*π) * param.σ)
+
+        # Plot Gaussian function
+        ax.plot(param.x, gaussian)
+
+        ax.legend(["Gaussian"])
+
+        # Save figure
+        savefig(
+            "./fig/gaussian.png",
+            bbox_inches="tight", pad_inches=0.1
+        )
+    end
 end
 
 
@@ -165,7 +196,8 @@ using .Computation:
     apply_gaussian,
     set_function
 using .PlotFigures:
-    out_functions
+    out_functions,
+    out_gaussian
 
 
 # ----------------------------------------
@@ -193,6 +225,7 @@ func = ParamVar.Function(
 ## Compute integral of Gaussian kernel
 # ----------------------------------------
 compute_gaussian_kernel_integral(param, func.int_G)
+out_gaussian(param)
 
 # ----------------------------------------
 ## Set function
