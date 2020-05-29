@@ -69,7 +69,27 @@ module Computation
 
             kernel_integral[itr_x_out] = tmp
         end
+    end
 
+
+    """
+    Apply Gaussian filtering
+    """
+    function apply_gaussian(param, func)
+
+        for itr_x_out = 1:param.N
+
+            tmp = 0.0
+            for itr_x_in = 1:param.N
+                # Compute square of relative distance
+                r² = compute_relative_distance_square(param.x[itr_x_out], param.x[itr_x_in])
+
+                # Sum up contribution of Gaussian weight in the nearby of original point
+                tmp += compute_gaussian_weight(param.σ, r²) * func.f[itr_x_in]
+            end
+
+            func.f_G[itr_x_out] = tmp / func.int_G[itr_x_out]
+        end
     end
 
 
@@ -135,6 +155,7 @@ using Plots
 using .ParamVar
 using .Computation:
     compute_gaussian_kernel_integral,
+    apply_gaussian,
     set_function
 using .PlotFigures:
     out_functions
@@ -174,7 +195,7 @@ set_function(param, func.f)
 # ----------------------------------------
 ## Apply Gaussian filter to the function
 # ----------------------------------------
-apply_Gaussian(param, func)
+apply_gaussian(param, func)
 
 # ----------------------------------------
 ## Output result
