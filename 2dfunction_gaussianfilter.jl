@@ -82,6 +82,48 @@ module Computation
 end
 
 
+"""
+Module for output figures
+"""
+module PlotFigures
+    using PyPlot
+    using PyCall
+    sns = pyimport("seaborn")
+    sns.set(
+        context="talk",
+        style="white",
+        palette="plasma",
+        font="sans-serif",
+        font_scale=1,
+        color_codes=false,
+    )
+    rc("text", usetex ="true")
+
+
+    """
+    Plot function
+    """
+    function out_functions(param, func)
+        # Figure setting
+        pygui(true)
+        fig = figure()
+        ax = gca(
+            xlabel=L"$x$", ylabel=L"$f$",
+            xlim=[-param.x_lim, param.x_lim],
+            xticks=[-π, -π*3.0/4.0, -π/2.0, -π/4.0, 0.0, π/4.0, π/2.0, π*3.0/4.0, π],
+            xticklabels=[L"$-\pi$", L"$-3\pi/4$", L"$-\pi/2$", L"$-\pi/4$", L"$0$", L"$\pi/4$", L"$\pi/2$", L"$3\pi/4$", L"$\pi$"]
+        )
+
+        # Function plot
+        ax.plot(param.x, func.f)
+        savefig(
+            "./fig/func.png",
+            bbox_inches="tight", pad_inches=0.1
+        )
+    end
+end
+
+
 # ========================================
 # Main function
 # ========================================
@@ -94,6 +136,8 @@ using .ParamVar
 using .Computation:
     compute_gaussian_kernel_integral,
     set_function
+using .PlotFigures:
+    out_functions
 
 
 # ----------------------------------------
