@@ -106,6 +106,7 @@ end
 Module for output figures
 """
 module PlotFigures
+    using Printf
     using PyPlot
     using PyCall
     sns = pyimport("seaborn")
@@ -143,8 +144,9 @@ module PlotFigures
         ax.legend(["original", "filtered"])
 
         # Save figure
+        filename = @sprintf("./fig/func_σ=%.3f.png", param.σ)
         savefig(
-            "./fig/func.png",
+            filename,
             bbox_inches="tight", pad_inches=0.1
         )
     end
@@ -174,8 +176,9 @@ module PlotFigures
         ax.legend(["Gaussian"])
 
         # Save figure
+        filename = @sprintf("./fig/gaussian_σ=%.3f.png", param.σ)
         savefig(
-            "./fig/gaussian.png",
+            filename,
             bbox_inches="tight", pad_inches=0.1
         )
     end
