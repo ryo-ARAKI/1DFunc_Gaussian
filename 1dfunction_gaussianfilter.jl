@@ -153,6 +153,37 @@ module PlotFigures
 
 
     """
+    Plot energy = function^2
+    """
+    function out_energy(param, func)
+        # Figure setting
+        pygui(true)
+        fig = figure()
+        ax = gca(
+            xlabel=L"$x$", ylabel=L"$E=f^2$",
+            xlim=[-param.x_lim, param.x_lim],
+            xticks=[-π, -π/2.0, 0.0, π/2.0, π],
+            xticklabels=[L"$-\pi$", L"$-\pi/2$", L"$0$", L"$\pi/2$", L"$\pi$"],
+        )
+
+        # Plot original/filtered function
+        ax.plot(
+            param.x, func.f.^2,  # original
+            param.x, func.f_G.^2,  # filtered
+        )
+
+        ax.legend(["original", "filtered"])
+
+        # Save figure
+        filename = @sprintf("./fig/energy_σ=%.3f.png", param.σ)
+        savefig(
+            filename,
+            bbox_inches="tight", pad_inches=0.1
+        )
+    end
+
+
+    """
     Plot Gaussian function
     """
     function out_gaussian(param)
@@ -200,6 +231,7 @@ using .Computation:
     set_function
 using .PlotFigures:
     out_functions,
+    out_energy,
     out_gaussian
 
 
@@ -244,3 +276,4 @@ apply_gaussian(param, func)
 ## Output result
 # ----------------------------------------
 out_functions(param, func)
+out_energy(param, func)
